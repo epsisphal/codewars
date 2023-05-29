@@ -9,6 +9,7 @@ def count_sheeps(sheep):
             count += 1
     return count
 
+# Test Cases
 @test.describe("Basic Tests")
 def basic_tests():
     
@@ -23,3 +24,5 @@ def basic_tests():
         
         result = count_sheeps(array1)
         test.assert_equals(result, 17, f"There are 17 sheeps in total, not {result}")
+
+
