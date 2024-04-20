@@ -14,26 +14,36 @@ class User:
             return
         if self.rank == rank:
             self.progress += 3
-        elif self.rank - rank == 1:
-            self.progress += 1
-        elif self.rank - rank >= 2:
-            pass
-        elif self.rank - rank <= -2:
-            self.progress += 10 * (self.rank - rank) ** 2
+        if self.rank * rank > 0: # if same sign
+            if self.rank - rank == 1:
+                self.progress += 1
+            elif self.rank - rank >= 2:
+                pass
+            elif self.rank - rank <= -1:
+                self.progress += 10 * (rank - self.rank) ** 2
+        else: # not same sign
+            if self.rank - rank == 2:
+                self.progress += 1
+            elif self.rank - rank >= 3:
+                pass
+            elif rank-self.rank >= 2:
+                self.progress += 10 * (rank - self.rank - 1) ** 2
         while self.progress >= 100:
             self.progress -= 100
             self.rank += 1
             if self.rank == 0:
                 self.rank += 1
-        if self.rank == 8:
+        if self.rank >= 8:
+            self.rank = 8
             self.progress = 0
 
-
 user = User()
-
-user.inc_progress(-7)
+user.inc_progress(6)
 print(user.rank)
 print(user.progress)
+
+# user.inc_progress(-4)
+# print(user.progress)
 
 def do_test(rank, expected_rank, expected_progress):
     if rank: user.inc_progress(rank)
@@ -68,6 +78,4 @@ def do_test(rank, expected_rank, expected_progress):
 #     do_test(2, 1, 20)
 #     do_test(-1, 1, 21)
 #     do_test(3, 1, 61)
-
-
 
